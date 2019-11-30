@@ -1,0 +1,17 @@
+.label {
+  font-size: 13px;
+}
+
+.text-input {
+  border: 1px solid;
+  display: block;
+}
+
+.text-input--error {
+  border-color: red;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+}
