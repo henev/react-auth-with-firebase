@@ -3,82 +3,34 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useHistory
+  Redirect
 } from 'react-router-dom';
 
-import './App.css';
-
-import LoginPage from './pages/Login';
-import RegisterPage from './pages/Register';
+import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import { AuthUserContext, withAuthentication } from './components/Session';
-import firebase from './firebase';
+import Settings from './pages/Settings';
+import NotFound from './pages/NotFound';
+import { withAuthentication, withAuthorization } from './components/Session';
+import * as ROUTES from './constants/routes';
 
 function App() {
   return (
     <Router>
-      <div>
-        <AuthButton />
-
-        <ul>
-          <li>
-            <Link to="/public">Public</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        </ul>
-
-        <Switch>
-          <Route path="/public" component={PublicPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/dashboard" component={Dashboard} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route path={ROUTES.LOGIN} component={Login} />
+        
+        <PrivateRoute exact path="/" component={() => <Redirect to={ROUTES.DASHBOARD} />} />
+        <PrivateRoute path={ROUTES.DASHBOARD} component={Dashboard} />
+        <PrivateRoute path={ROUTES.SETTINGS} component={Settings} />
+        
+        <Route path="*" component={NotFound} />
+      </Switch>
     </Router>
   );
 }
 
-function AuthButton() {
-  const history = useHistory();
-  const logout = () => {
-    firebase.auth().signOut()
-      .then(() => history.push('/'))
-      .catch(err => console.log(err));
-  };
-
-  return (
-    <AuthUserContext.Consumer>
-      {authUser =>
-        authUser ? (
-          <p>
-            Welcome!{' '}
-            <button onClick={logout}>Sign out</button>
-          </p>
-        ) : (
-          <p>You are not logged in.</p>
-        )
-      }
-    </AuthUserContext.Consumer>
-  );
-}
-
-// function PrivateRoute(props) {
-//   return (
-//     <AuthUserContext.Consumer>
-//       {authUser =>
-//         authUser
-//           ? <Route {...props} />
-//           : <Redirect to={{ pathname:'/login', state: { from: props.location } }} />
-//       }
-//     </AuthUserContext.Consumer>
-//   );
-// }
-
-function PublicPage() {
-  return <h3>Public</h3>;
+function PrivateRoute({ component: Component, ...rest }) {
+  return <Route {...rest} component={withAuthorization(Component)} />
 }
 
 export default withAuthentication(App);

@@ -5,20 +5,10 @@ import * as Yup from 'yup';
 import Input from '../components/Input/index';
 import firebase from '../firebase';
 import * as ROUTES from '../constants/routes';
-import * as COLLECTIONS from '../constants/collections';
 
 function Register() {
   const history = useHistory();
   const validationSchema = Yup.object({
-    firstName: Yup.string()
-      .max(15, 'Must be 15 characters or less')
-      .required('First name is required'),
-    lastName: Yup.string()
-      .max(15, 'Must be 15 characters or less')
-      .required('Last name is required'),
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email address is required'),
     password: Yup.string()
       .min(6, 'Password must be minimum of 6 characters')
       .required('Password is required'),
@@ -28,15 +18,9 @@ function Register() {
       .required('Confirm password is required')
   });
 
-  const register = values => {
-    firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
-      .then((res) => {
-        firebase.firestore().collection(COLLECTIONS.USERS).doc(res.user.uid).set({
-          email: values.email,
-          firstName: values.firstName,
-          lastName: values.lastName
-        }).then(() => history.push(ROUTES.DASHBOARD));
-      })
+  const updatePassword = values => {
+    firebase.auth().currentUser.updatePassword(values.password)
+      .then(() => history.push(ROUTES.DASHBOARD))
       .catch(err => {
         console.log(err.message);
       });
@@ -46,18 +30,14 @@ function Register() {
     <Formik
       initialValues={{ firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }}
       validationSchema={ validationSchema }
-      onSubmit={ register }
+      onSubmit={ updatePassword }
     >
       {props => (
         <Form>
-          <Input label="First Name" name="firstName" type="text" placeholder="Enter first name" />
-          <Input label="Last Name" name="lastName" type="text" placeholder="Enter last name" />
-          <Input label="Email Address" name="email" type="email" placeholder="Enter email address" />
           <Input label="Password" name="password" type="password" placeholder="Enter password" />
           <Input label="Confirm password" name="confirmPassword" type="password" placeholder="Confirm password" />
           
           <button type="submit" disabled={props.isSubmitting}>Submit</button>
-          <button type="reset" onClick={props.handleReset}>Reset</button>
         </Form>
       )}
     </Formik>
