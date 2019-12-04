@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import Input from '../components/Input/index';
-import firebase from '../firebase';
-import * as ROUTES from '../constants/routes';
-import * as COLLECTIONS from '../constants/collections';
+import Input from '../../common/Input/index';
+import firebase from '../../firebase';
+import * as ROUTES from '../../constants/routes';
+import * as COLLECTIONS from '../../constants/collections';
+import Button from '../../common/Button';
+import ButtonWrapper from '../../common/ButtonWrapper';
 
-function Profile() {
-  const [authUser] = useState(firebase.auth().currentUser);
+function Profile({ authUser }) {
   const [userDoc] = useState(firebase.firestore().collection(COLLECTIONS.USERS).doc(authUser.uid));
   const [userData, setUserData] = useState({
     firstName: '',
@@ -62,7 +63,9 @@ function Profile() {
           <Input label="Last Name" name="lastName" type="text" placeholder="Enter last name" />
           <Input label="Email Address" name="email" type="email" placeholder="Enter email address" />
           
-          <button type="submit" disabled={props.isSubmitting}>Submit</button>
+          <ButtonWrapper>
+            <Button type="submit" disabled={props.isSubmitting}>UPDATE</Button>
+          </ButtonWrapper>
         </Form>
       )}
     </Formik>

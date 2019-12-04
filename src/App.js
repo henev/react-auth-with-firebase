@@ -6,18 +6,32 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import Settings from './pages/Settings';
-import NotFound from './pages/NotFound';
-import { withAuthentication, withAuthorization } from './components/Session';
+import LoginLayout from './layouts/Login';
+import PrivateLayout from './layouts/Private';
+
+import Register from './pages/Login/Register';
+import Login from './pages/Login/Login';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Settings from './pages/Settings/Settings';
+import NotFound from './pages/NotFound/NotFound';
+
+import { withAuthentication, withAuthorization, AuthUserContext } from './common/Session';
 import * as ROUTES from './constants/routes';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path={ROUTES.LOGIN} component={Login} />
+        <Route path={ROUTES.LOGIN} render={props => 
+          <LoginLayout {...props}>
+            <Login {...props} />
+          </LoginLayout>
+        } />
+        <Route path={ROUTES.REGISTER} render={props => 
+          <LoginLayout {...props}>
+            <Register {...props} />
+          </LoginLayout>
+        } />
         
         <PrivateRoute exact path="/" component={() => <Redirect to={ROUTES.DASHBOARD} />} />
         <PrivateRoute path={ROUTES.DASHBOARD} component={Dashboard} />
@@ -30,7 +44,17 @@ function App() {
 }
 
 function PrivateRoute({ component: Component, ...rest }) {
-  return <Route {...rest} component={withAuthorization(Component)} />
+  const PrivateComponent = withAuthorization(Component);
+
+  return <Route {...rest} render={(props) => 
+    <AuthUserContext.Consumer>
+      {authUser => (
+        <PrivateLayout authUser={authUser} {...props}>
+          <PrivateComponent {...props} />
+        </PrivateLayout>
+      )}
+    </AuthUserContext.Consumer>
+  } />
 }
 
 export default withAuthentication(App);

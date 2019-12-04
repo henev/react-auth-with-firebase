@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './fonts/Roboto-Light.ttf';
+import './fonts/Roboto-Medium.ttf';
+import './fonts/Roboto-Regular.ttf';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

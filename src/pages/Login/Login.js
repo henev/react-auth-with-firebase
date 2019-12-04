@@ -1,18 +1,14 @@
 import React from 'react';
-import {
-  useHistory,
-  useLocation
-} from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import Input from '../components/Input/index';
-import firebase from '../firebase';
-import * as ROUTES from '../constants/routes';
+import Input from '../../common/Input';
+import Button from '../../common/Button';
+import ButtonWrapper from '../../common/ButtonWrapper';
+import firebase from '../../firebase';
+import * as ROUTES from '../../constants/routes';
 
-function Login() {
-  const history = useHistory();
-  const location = useLocation();
+function Login({ history, location }) {
   const { from } = location.state || { from: { pathname: ROUTES.DASHBOARD }};
 
   const login = (values, { setSubmitting }) => {
@@ -45,7 +41,10 @@ function Login() {
         <Form>
           <Input label="Email Address" name="email" type="email" placeholder="Enter your email address" />
           <Input label="Password" name="password" type="password" placeholder="Enter your password" />
-          <button type="submit" disabled={props.isSubmitting}>Submit</button>
+          
+          <ButtonWrapper>
+            <Button type="submit" disabled={props.isSubmitting}>LOGIN</Button>
+          </ButtonWrapper>
         </Form>
       )}
     </Formik>

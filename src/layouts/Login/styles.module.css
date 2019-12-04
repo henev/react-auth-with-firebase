@@ -1,0 +1,64 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  margin-bottom: 16px;
+  margin-left: 16px;
+}
+
+.headerLogo {
+  margin-right: 16px;
+  height: 33.55px;
+  width: 37.7px;
+}
+
+.headerTextSmall {
+  font-family: 'RobotoLight';
+  font-size: 16px;
+}
+
+.headerTextBig {
+  font-family: 'RobotoMedium';
+  font-size: 20px;
+}
+
+.form {
+  background-color: #fafafa;
+  border-radius: 4px;
+  width: 640px;
+}
+
+.navigation {
+  display: flex;
+}
+
+.navLink {
+  align-items: center;
+  background-color: rgba(0, 0, 0, .06);
+  color: rgba(0, 0, 0, .54);
+  display: flex;
+  font-family: 'RobotoMedium';
+  font-size: 16px;
+  flex: 1;
+  height: 56px;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.activeNavLink {
+  background-color: #fafafa;
+  color: rgba(0, 0, 0, .87);
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 38px 0;
+}

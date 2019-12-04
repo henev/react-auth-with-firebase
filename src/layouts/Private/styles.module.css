@@ -1,0 +1,56 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.section {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  flex: 1;
+  padding: 40px 64px;
+}
+
+.users {
+  flex: 1;
+  padding: 40px 64px;
+  background-color: #fafafa;
+}
+
+.navigation {
+  position: relative;
+  bottom: 0;
+}
+
+.navLink {
+  background-color: transparent;
+  border: none;
+  display: block;
+  color: rgba(0, 0, 0, .87);
+  font-size: 16px;
+  font-family: 'RobotoMedium';
+  text-decoration: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: rgba(0, 0, 0, .54);
+}
+
+.userList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.user {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.activeUser {
+  composes: user;
+  color: #50D630;
+}

@@ -1,0 +1,37 @@
+.wrapper {
+  margin-bottom: 8px;
+}
+
+.label {
+  font-size: 12px;
+  margin-bottom: 4px;
+  margin-left: 16px;
+}
+
+.input {
+  background-color: rgba(0, 0, 0, .12);
+  border: none;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, .87);
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  height: 40px;
+  padding: 0 16px;
+  width: 320px;
+}
+
+input::placeholder {
+  color: rgba(0, 0, 0, .38);
+}
+
+.inputWithError {
+  border: 1px solid #E33333;
+}
+
+.error {
+  color: #E33333;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-left: 16px;
+}

@@ -2,10 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import Input from '../components/Input/index';
-import firebase from '../firebase';
-import * as ROUTES from '../constants/routes';
-import * as COLLECTIONS from '../constants/collections';
+import Input from '../../common/Input';
+import Button from '../../common/Button';
+import ButtonWrapper from '../../common/ButtonWrapper';
+import firebase from '../../firebase';
+import * as ROUTES from '../../constants/routes';
+import * as COLLECTIONS from '../../constants/collections';
 
 function Register() {
   const history = useHistory();
@@ -56,8 +58,10 @@ function Register() {
           <Input label="Password" name="password" type="password" placeholder="Enter password" />
           <Input label="Confirm password" name="confirmPassword" type="password" placeholder="Confirm password" />
           
-          <button type="submit" disabled={props.isSubmitting}>Submit</button>
-          <button type="reset" onClick={props.handleReset}>Reset</button>
+          <ButtonWrapper>
+            <Button type="submit" disabled={props.isSubmitting}>REGISTER</Button>
+            <Button type="reset" onClick={props.handleReset} secondary>RESET</Button>
+          </ButtonWrapper>
         </Form>
       )}
     </Formik>

@@ -1,0 +1,28 @@
+.button {
+  border: 2px solid transparent;
+  border-radius: 2px;
+  background-color: #F27F5B;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'RobotoMedium';
+  height: 36px;
+  min-width: 88px;
+  padding: 0 16px;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.button:hover {
+  opacity: .9;
+}
+
+.button:last-child {
+  margin-right: 0;
+}
+
+.secondary {
+  composes: button;
+  border: 2px solid #F27F5B;
+  background-color: transparent;
+  color: #F27F5B;
+}

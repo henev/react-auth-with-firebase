@@ -1,8 +1,32 @@
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'), url(./fonts/Roboto-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoMedium';
+  src: local('RobotoMedium'), url(./fonts/Roboto-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoLight';
+  src: local('RobotoLight'), url(./fonts/Roboto-Light.ttf) format('truetype');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
 body {
+  background: linear-gradient(to bottom, #E980F7 -20%, #5BCEF2 100%);
+  color: rgba(0, 0, 0, .87);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
