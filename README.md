@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [Project Demo](https://example-d711a.firebaseapp.com/)
 
-What was achieved in this excersise project:
+#### What was achieved in this excersise project:
 
 * Created React application from scratch
 * Used [React Router](https://reacttraining.com/react-router/web)
