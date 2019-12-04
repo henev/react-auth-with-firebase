@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import firebase from '../../firebase';
 import * as ROUTES from '../../constants/routes';
+import Loader from '../Loader';
 
 function withAuthorization(Component) {
   function WithAuthorization(props) {
@@ -19,7 +20,7 @@ function withAuthorization(Component) {
     });
 
     // TODO: Add loading component instead of null
-    return firebase.auth().currentUser ? <Component {...props} /> : null;
+    return firebase.auth().currentUser ? <Component {...props} /> : <Loader />;
   }
 
   return WithAuthorization;

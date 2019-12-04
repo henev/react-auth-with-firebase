@@ -4,7 +4,8 @@ import firebase from '../../firebase';
 import * as ROUTES from '../../constants/routes';
 import * as COLLECTIONS from '../../constants/collections';
 import Heading from '../../common/Heading';
-import styles from './styles.module.css'
+import styles from './styles.module.css';
+import { withAuthorization } from '../../common/Session';
 
 function PrivateLayout({ children , history, match, authUser }) {
   const [users, setUsers] = useState(null);
@@ -26,9 +27,7 @@ function PrivateLayout({ children , history, match, authUser }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.section}>
-        <div>
-          { children }
-        </div>
+        { children }
         
         <div className={styles.navigation}>
           { match.url !== ROUTES.DASHBOARD && <Link to={ROUTES.DASHBOARD} className={styles.navLink}>Go to Dashboard</Link> }
@@ -56,4 +55,4 @@ function PrivateLayout({ children , history, match, authUser }) {
   );
 }
 
-export default PrivateLayout;
+export default withAuthorization(PrivateLayout);

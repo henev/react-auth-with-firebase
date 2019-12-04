@@ -41,6 +41,7 @@ function Register() {
       })
       .catch(err => {
         console.log(err.message);
+        // Show toast
       });
   };
 

@@ -1,7 +1,12 @@
 .form {
   background-color: #fafafa;
   border-radius: 4px;
-  width: 640px;
+  width: 512px;
+}
+
+.formFlexible {
+  composes: form;
+  width: 100%;
 }
 
 .navigation {

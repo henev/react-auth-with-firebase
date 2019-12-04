@@ -15,7 +15,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Settings from './pages/Settings/Settings';
 import NotFound from './pages/NotFound/NotFound';
 
-import { withAuthentication, withAuthorization, AuthUserContext } from './common/Session';
+import { withAuthentication, AuthUserContext } from './common/Session';
 import * as ROUTES from './constants/routes';
 
 function App() {
@@ -44,13 +44,11 @@ function App() {
 }
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const PrivateComponent = withAuthorization(Component);
-
   return <Route {...rest} render={(props) => 
     <AuthUserContext.Consumer>
       {authUser => (
         <PrivateLayout authUser={authUser} {...props}>
-          <PrivateComponent {...props} />
+          <Component {...props} />
         </PrivateLayout>
       )}
     </AuthUserContext.Consumer>

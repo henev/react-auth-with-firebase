@@ -21,7 +21,7 @@ function Settings() {
     <>
       <Heading>Settings</Heading>
 
-      <Form routes={routes}>
+      <Form routes={routes} flexible>
         <Route exact path={ROUTES.SETTINGS} component={() => <Redirect to={ROUTES.PROFILE} />} />
         <Route path={ROUTES.PROFILE}>
           <AuthUserContext.Consumer>{ authUser => <ProfileForm authUser={authUser} /> }</AuthUserContext.Consumer>

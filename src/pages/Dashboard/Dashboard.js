@@ -8,10 +8,10 @@ const Text = styled.div`
 
 function Dashboard() {
   return (
-    <>
+    <div>
       <Heading>Dashboard</Heading>
       <Text>Nothing to display here ¯\_(ツ)_/¯</Text>
-    </>
+    </div>
   );
 }
 
