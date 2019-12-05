@@ -8,8 +8,10 @@ import * as ROUTES from '../../constants/routes';
 import * as COLLECTIONS from '../../constants/collections';
 import Button from '../../common/Button';
 import ButtonWrapper from '../../common/ButtonWrapper';
+import { useToast } from '../../common/Toast';
 
 function Profile({ authUser }) {
+  const [toast] = useState(useToast());
   const [userDoc] = useState(firebase.firestore().collection(COLLECTIONS.USERS).doc(authUser.uid));
   const [userData, setUserData] = useState({
     firstName: '',
@@ -32,10 +34,11 @@ function Profile({ authUser }) {
 
   useEffect(() => {
     userDoc.get()
-      .then(doc => setUserData(doc.data()));
-  }, [userDoc]);
+      .then(doc => setUserData(doc.data()))
+      .catch(err => toast.add(err.message, 'error'));
+  }, [userDoc, toast]);
 
-  const updateProfile = values => {
+  const updateProfile = (values, { setSubmitting }) => {
     authUser.updateEmail(values.email)
       .then(() => {
         userDoc
@@ -43,10 +46,19 @@ function Profile({ authUser }) {
             email: values.email,
             firstName: values.firstName,
             lastName: values.lastName
-          }).then(() => history.push(ROUTES.DASHBOARD));
+          })
+          .then(() => {
+            toast.add('You have successfully changed your profile information.', 'success');
+            history.push(ROUTES.DASHBOARD);
+          })
+          .catch(err => {
+            toast.add(err.message, 'error');
+            setSubmitting(false);
+          });
       })
       .catch(err => {
-        console.log(err.message);
+        toast.add(err.message, 'error');
+        setSubmitting(false);
       });
   };
 
