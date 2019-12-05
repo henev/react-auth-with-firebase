@@ -7,8 +7,10 @@ import firebase from '../../firebase';
 import * as ROUTES from '../../constants/routes';
 import Button from '../../common/Button';
 import ButtonWrapper from '../../common/ButtonWrapper';
+import { useToast } from '../../common/Toast';
 
 function Register() {
+  const toast = useToast();
   const history = useHistory();
   const validationSchema = Yup.object({
     password: Yup.string()
@@ -20,11 +22,15 @@ function Register() {
       .required('Confirm password is required')
   });
 
-  const updatePassword = values => {
+  const updatePassword = (values, { setSubmitting }) => {
     firebase.auth().currentUser.updatePassword(values.password)
-      .then(() => history.push(ROUTES.DASHBOARD))
+      .then(() => {
+        toast.add('You have successfully changed your password.', 'success');
+        history.push(ROUTES.DASHBOARD);
+      })
       .catch(err => {
-        console.log(err.message);
+        toast.add(err.message, 'error');
+        setSubmitting(false);
       });
   };
 

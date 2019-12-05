@@ -7,17 +7,19 @@ import Button from '../../common/Button';
 import ButtonWrapper from '../../common/ButtonWrapper';
 import firebase from '../../firebase';
 import * as ROUTES from '../../constants/routes';
+import { useToast } from '../../common/Toast';
 
 function Login({ history, location }) {
+  const toast = useToast();
   const { from } = location.state || { from: { pathname: ROUTES.DASHBOARD }};
 
   const login = (values, { setSubmitting }) => {
     firebase.auth().signInWithEmailAndPassword(values.email, values.password)
-      .then(data => {
-        console.log(data);
+      .then(() => {
         history.push(from);
       })
-      .catch(() => {
+      .catch(err => {
+        toast.add(err.message, 'error');
         setSubmitting(false);
       });
   };
@@ -33,7 +35,7 @@ function Login({ history, location }) {
 
   return (
     <Formik 
-      initialValues={{ email: 'admin@admin.com', password: '1qaz@WSX' }} 
+      initialValues={{ email: 'admin@admin.com', password: '123123' }} 
       validationSchema={ validationSchema }
       onSubmit={ login }
     >

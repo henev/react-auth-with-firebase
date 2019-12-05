@@ -8,8 +8,10 @@ import ButtonWrapper from '../../common/ButtonWrapper';
 import firebase from '../../firebase';
 import * as ROUTES from '../../constants/routes';
 import * as COLLECTIONS from '../../constants/collections';
+import { useToast } from '../../common/Toast';
 
 function Register() {
+  const toast = useToast();
   const history = useHistory();
   const validationSchema = Yup.object({
     firstName: Yup.string()
@@ -30,18 +32,21 @@ function Register() {
       .required('Confirm password is required')
   });
 
-  const register = values => {
+  const register = (values, { setSubmitting }) => {
     firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
       .then((res) => {
         firebase.firestore().collection(COLLECTIONS.USERS).doc(res.user.uid).set({
           email: values.email,
           firstName: values.firstName,
           lastName: values.lastName
-        }).then(() => history.push(ROUTES.DASHBOARD));
+        }).then(() => {
+          toast.add('Congratulations! You have registered successfully!', 'success')
+          history.push(ROUTES.DASHBOARD)
+        });
       })
       .catch(err => {
-        console.log(err.message);
-        // Show toast
+        toast.add(err.message, 'error');
+        setSubmitting(false);
       });
   };
 

@@ -5,6 +5,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+import { compose } from 'recompose';
 
 import LoginLayout from './layouts/Login';
 import PrivateLayout from './layouts/Private';
@@ -16,6 +17,7 @@ import Settings from './pages/Settings/Settings';
 import NotFound from './pages/NotFound/NotFound';
 
 import { withAuthentication, AuthUserContext } from './common/Session';
+import { withToastProvider } from './common/Toast';
 import * as ROUTES from './constants/routes';
 
 function App() {
@@ -55,4 +57,4 @@ function PrivateRoute({ component: Component, ...rest }) {
   } />
 }
 
-export default withAuthentication(App);
+export default compose(withToastProvider, withAuthentication)(App);

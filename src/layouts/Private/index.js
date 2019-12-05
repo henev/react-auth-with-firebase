@@ -6,8 +6,10 @@ import * as COLLECTIONS from '../../constants/collections';
 import Heading from '../../common/Heading';
 import styles from './styles.module.css';
 import { withAuthorization } from '../../common/Session';
+import { useToast } from '../../common/Toast';
 
 function PrivateLayout({ children , history, match, authUser }) {
+  const toast = useToast;
   const [users, setUsers] = useState(null);
   const logout = () => {
     firebase.auth().signOut()
@@ -16,13 +18,18 @@ function PrivateLayout({ children , history, match, authUser }) {
   };
 
   useEffect(() => {
-    const listener = firebase.firestore().collection(COLLECTIONS.USERS).onSnapshot(querySnapshot => {
-        setUsers(querySnapshot);
-        querySnapshot.forEach(doc => console.log(doc.id, doc.data()));
-      });
+    const listener = firebase
+      .firestore()
+      .collection(COLLECTIONS.USERS)
+      .onSnapshot(
+        querySnapshot => {
+          setUsers(querySnapshot);
+        }, 
+        err => toast.add(err.message, 'error')
+      );
 
     return listener;
-  }, []);
+  }, [toast]);
 
   return (
     <div className={styles.wrapper}>
