@@ -19,19 +19,18 @@ function withToastProvider(Component) {
     const [toasts, setToasts] = useState([]);
     const add = (content, type = 'success') => {
       const id = generateUEID();
+      const toastsCopy = [...toasts];
       
-      if (toasts.length > 4) {
-        toasts.shift();
+      if (toastsCopy.length > 4) {
+        toastsCopy.shift();
       }
 
-      setToasts([...toasts, { id, content, type }]);
+      setToasts([...toastsCopy, { id, content, type }]);
     };
-    const remove = id => {
-      setToasts(toasts.filter(t => t.id !== id));
-    };
+    const remove = id => setToasts(toasts.filter(t => t.id !== id));
 
     return (
-      <ToastContext.Provider value={{ add, remove, toasts }}>
+      <ToastContext.Provider value={{ add, toasts }}>
         <Component {...props} />
 
         { createPortal(

@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSpring, animated } from 'react-spring';
 import styles from './styles.module.css';
 
 function Toast({ children, remove, type }) {
+  const animationProps = useSpring({opacity: .9, from: {opacity: 0}});
+  const removeRef = useRef(remove);
+  removeRef.current = remove;
+
   useEffect(() => {
     const duration = 5000;
-    const id = setTimeout(() => remove(), duration);
-    console.log(id);
+    const id = setTimeout(() => removeRef.current(), duration);
 
     return () => clearTimeout(id);
   }, []);
 
   return (
-    <div onClick={remove} className={styles[`${type}Toast`]}>
+    <animated.div style={animationProps} onClick={remove} className={styles[`${type}Toast`]}>
       <div className={styles.text}>
         <strong className={styles[type]}>{type === 'error' ? '[Error] ' : '[Success] '}</strong>
         { children }
@@ -19,7 +23,7 @@ function Toast({ children, remove, type }) {
       <div>
         <button className={styles.closeButton}>x</button>
       </div>
-    </div>
+    </animated.div>
   );
 }
 
