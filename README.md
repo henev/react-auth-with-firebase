@@ -18,3 +18,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Managed the architecture of the application and the components
 * Used [Formik](https://jaredpalmer.com/formik) to easily create and validate forms
 * Used and practiced CSS modules as well as [Styled Components](https://www.styled-components.com/)
+* Created a component for toast messages from scratch that you can call from anywhere from the app

@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles.module.css';
 
 function Toast({ children, remove, type }) {
-  // useEffect(() => {
-  //   const duration = 5000;
-  //   const id = setTimeout(() => remove(), duration);
-  //   console.log(id);
+  useEffect(() => {
+    const duration = 5000;
+    const id = setTimeout(() => remove(), duration);
+    console.log(id);
 
-  //   return () => clearTimeout(id);
-  // }, []);
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <div onClick={remove} className={styles[`${type}Toast`]}>
