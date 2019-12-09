@@ -19,3 +19,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Used [Formik](https://jaredpalmer.com/formik) to easily create and validate forms
 * Used and practiced CSS modules as well as [Styled Components](https://www.styled-components.com/)
 * Created a component for toast messages from scratch that you can call from anywhere from the app
+  * Created a [Medium post](https://medium.com/@hristo.peychev.enev/react-custom-toast-notification-component-from-scratch-adccd1c452b8) about the toast notificaiton component

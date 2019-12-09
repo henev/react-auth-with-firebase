@@ -16,7 +16,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Settings from './pages/Settings/Settings';
 import NotFound from './pages/NotFound/NotFound';
 
-import { withAuthentication, AuthUserContext } from './common/Session';
+import { withAuthentication } from './common/Session';
 import { withToastProvider } from './common/Toast';
 import * as ROUTES from './constants/routes';
 
@@ -47,13 +47,9 @@ function App() {
 
 function PrivateRoute({ component: Component, ...rest }) {
   return <Route {...rest} render={(props) => 
-    <AuthUserContext.Consumer>
-      {authUser => (
-        <PrivateLayout authUser={authUser} {...props}>
-          <Component {...props} />
-        </PrivateLayout>
-      )}
-    </AuthUserContext.Consumer>
+    <PrivateLayout {...props}>
+      <Component {...props} />
+    </PrivateLayout>
   } />
 }
 

@@ -30,7 +30,7 @@ function withToastProvider(Component) {
     const remove = id => setToasts(toasts.filter(t => t.id !== id));
 
     return (
-      <ToastContext.Provider value={{ add, toasts }}>
+      <ToastContext.Provider value={{ add, remove }}>
         <Component {...props} />
 
         { createPortal(

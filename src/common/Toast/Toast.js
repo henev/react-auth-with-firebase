@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 
 function Toast({ children, remove, type }) {
   const animationProps = useSpring({opacity: .9, from: {opacity: 0}});
-  const removeRef = useRef(remove);
+  const removeRef = useRef();
   removeRef.current = remove;
 
   useEffect(() => {

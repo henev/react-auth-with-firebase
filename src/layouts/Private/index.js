@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from '../../firebase';
 import * as ROUTES from '../../constants/routes';
 import * as COLLECTIONS from '../../constants/collections';
 import Heading from '../../common/Heading';
 import styles from './styles.module.css';
-import { withAuthorization } from '../../common/Session';
+import { withAuthorization, AuthUserContext } from '../../common/Session';
 import { useToast } from '../../common/Toast';
 
-function PrivateLayout({ children , history, match, authUser }) {
+function PrivateLayout({ children , history, match }) {
+  const authUser = useContext(AuthUserContext);
   const toast = useToast;
   const [users, setUsers] = useState(null);
   const logout = () => {

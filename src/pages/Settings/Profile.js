@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -9,8 +9,10 @@ import * as COLLECTIONS from '../../constants/collections';
 import Button from '../../common/Button';
 import ButtonWrapper from '../../common/ButtonWrapper';
 import { useToast } from '../../common/Toast';
+import { AuthUserContext } from '../../common/Session';
 
-function Profile({ authUser }) {
+function Profile() {
+  const authUser = useContext(AuthUserContext);
   const [toast] = useState(useToast());
   const [userDoc] = useState(firebase.firestore().collection(COLLECTIONS.USERS).doc(authUser.uid));
   const [userData, setUserData] = useState({
