@@ -10,7 +10,7 @@ import { useToast } from '../../common/Toast';
 
 function PrivateLayout({ children , history, match }) {
   const authUser = useContext(AuthUserContext);
-  const toast = useToast;
+  const toast = useToast();
   const [users, setUsers] = useState(null);
   const logout = () => {
     firebase.auth().signOut()
